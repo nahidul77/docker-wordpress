@@ -1,0 +1,41 @@
+version: "2"
+services:
+  mariadb:
+    image: docker.io/bitnami/mariadb:10.6
+    container_name: wordpress-db
+    ports:
+      - 8889:3306
+    volumes:
+      - ./db_data:/bitnami/mariadb
+    environment:
+      - MARIADB_ROOT_PASSWORD=&qo{&&]'_5[-@hb
+      - MARIADB_USER=fullstro
+      - MARIADB_PASSWORD=kc{Sh]+vj37gemC
+      - MARIADB_DATABASE=ic_fullstro
+  wordpress:
+    image: docker.io/bitnami/wordpress:6
+    container_name: wordpress-app
+    ports:
+      - 8888:80
+    volumes:
+      - ./wp_data:/bitnami/wordpress
+      - ./entrypoint.sh:/entrypoint.sh
+    depends_on:
+      - mariadb
+    environment:
+      - WORDPRESS_DATABASE_HOST=mariadb
+      - WORDPRESS_DATABASE_PORT_NUMBER=3306
+      - WORDPRESS_DATABASE_NAME=ic_fullstro
+      - WORDPRESS_DATABASE_USER=fullstro
+      - WORDPRESS_DATABASE_PASSWORD=kc{Sh]+vj37gemC
+      - WORDPRESS_USERNAME=admin
+      - WORDPRESS_PASSWORD=admin
+      - WORDPRESS_EMAIL=admin@example.com
+    user: "1001:1001"
+    entrypoint: ["/entrypoint.sh"]  # Use the entrypoint script
+volumes:
+  mariadb_data:
+    driver: local
+  wordpress_data:
+    driver: local
+
