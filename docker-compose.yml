@@ -10,9 +10,9 @@ services:
       - mariadb_data:/bitnami/mariadb
     environment:
       - MARIADB_ROOT_PASSWORD=&qo{&&]'_5[-@hb
-      - MARIADB_USER=fullstro_user
+      - MARIADB_USER=demo_user
       - MARIADB_PASSWORD=kc{Sh]+vj37gemC
-      - MARIADB_DATABASE=fullstro_db
+      - MARIADB_DATABASE=demo_db
   wordpress:
     image: docker.io/bitnami/wordpress:6
     container_name: wordpress-app
@@ -26,12 +26,12 @@ services:
     environment:
       - WORDPRESS_DATABASE_HOST=mariadb
       - WORDPRESS_DATABASE_PORT_NUMBER=3306
-      - WORDPRESS_DATABASE_USER=fullstro_user
+      - WORDPRESS_DATABASE_USER=demo_user
       - WORDPRESS_DATABASE_PASSWORD=kc{Sh]+vj37gemC
-      - WORDPRESS_DATABASE_NAME=fullstro_db
+      - WORDPRESS_DATABASE_NAME=demo_db
       - WORDPRESS_USERNAME=admin
       - WORDPRESS_PASSWORD=12345678
-      - WORDPRESS_EMAIL=nahiditclanbd@gmail.com
+      - WORDPRESS_EMAIL=contact.nahidul@gmail.com
 volumes:
   mariadb_data:
     driver: local
