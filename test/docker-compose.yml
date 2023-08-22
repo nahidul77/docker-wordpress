@@ -1,8 +1,9 @@
-version: "2"
+version: '3.8'
 services:
   mariadb:
     image: docker.io/bitnami/mariadb:10.6
     container_name: wordpress-db
+    restart: unless-stopped
     ports:
       - 8889:3306
     volumes:
@@ -15,27 +16,19 @@ services:
   wordpress:
     image: docker.io/bitnami/wordpress:6
     container_name: wordpress-app
+    restart: unless-stopped
     ports:
-      - 8888:80
+      - 8888:8080
     volumes:
       - ./wp_data:/bitnami/wordpress
-      - ./entrypoint.sh:/entrypoint.sh
     depends_on:
       - mariadb
     environment:
       - WORDPRESS_DATABASE_HOST=mariadb
       - WORDPRESS_DATABASE_PORT_NUMBER=3306
-      - WORDPRESS_DATABASE_NAME=demo_db
       - WORDPRESS_DATABASE_USER=demo_user
       - WORDPRESS_DATABASE_PASSWORD=kc{Sh]+vj37gemC
+      - WORDPRESS_DATABASE_NAME=demo_db
       - WORDPRESS_USERNAME=admin
-      - WORDPRESS_PASSWORD=admin
-      - WORDPRESS_EMAIL=admin@example.com
-    user: "1001:1001"
-    entrypoint: ["/entrypoint.sh"]  # Use the entrypoint script
-volumes:
-  mariadb_data:
-    driver: local
-  wordpress_data:
-    driver: local
-
+      - WORDPRESS_PASSWORD=12345678
+      - WORDPRESS_EMAIL=contact.nahidul@gmail.com
